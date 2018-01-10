@@ -15,7 +15,7 @@ const YYYY = "yyyy";
 
 @Injectable()
 export class UtilService {
-    isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDates: Array<IMyDate>, disableDateRanges: Array<IMyDateRange>, monthLabels: IMyMonthLabels, enableDates: Array<IMyDate>): IMyDate {
+    isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDates: Array<IMyDate>, disableDateRanges: Array<IMyDateRange>, monthLabels: IMyMonthLabels, enableDates: Array<IMyDate>, yearOffset: number): IMyDate {
         let returnDate: IMyDate = {day: 0, month: 0, year: 0};
         let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let isMonthStr: boolean = dateFormat.indexOf(MMM) !== -1;
@@ -44,7 +44,7 @@ export class UtilService {
             if (this.isDisabledDate(date, disableUntil, disableSince, disableWeekends, disableDates, disableDateRanges, enableDates)) {
                 return returnDate;
             }
-
+            year = year - yearOffset;
             if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
                 daysInMonth[1] = 29;
             }

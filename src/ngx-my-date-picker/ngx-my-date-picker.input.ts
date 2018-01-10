@@ -39,8 +39,8 @@ export class NgxMyDatePickerDirective implements OnChanges, ControlValueAccessor
             su: "อา", mo: "จ", tu: "อ", we: "พ", th: "พฤ", fr: "ศ", sa: "ส"
         },
         monthLabels: <IMyMonthLabels>{
-            1: "ม.ค.", 2: "ก.พ.", 3: "มี.ค.", 4: "เม.ย.", 5: "พ.ค.", 6: "มิ.ย.",
-            7: "ก.ค.", 8: "ส.ค.", 9: "ก.ย.", 10: "ต.ค.", 11: "พ.ย.", 12: "ธ.ค."
+            1: "มกราคม", 2: "กุมภาพันธ์", 3: "มีนาคม", 4: "เมษายน", 5: "พฤษภาคม", 6: "มิถุนายน",
+            7: "กรกฎาคม", 8: "สิงหาคม", 9: "กันยายน", 10: "ตุลาคม", 11: "พฤศจิกายน", 12: "ธันวาคม"
         },
         dateFormat: <string>"dd/mm/yyyy",
         showTodayBtn: <boolean>true,
@@ -92,7 +92,7 @@ export class NgxMyDatePickerDirective implements OnChanges, ControlValueAccessor
             this.closeSelector(CalToggle.CloseByEsc);
         }
         else {
-            let date: IMyDate = this.utilService.isDateValid(this.elem.nativeElement.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDates, this.opts.disableDateRanges, this.opts.monthLabels, this.opts.enableDates);
+            let date: IMyDate = this.utilService.isDateValid(this.elem.nativeElement.value, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDates, this.opts.disableDateRanges, this.opts.monthLabels, this.opts.enableDates, this.opts.yearOffset);
             if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
                 let dateModel: IMyDateModel = this.utilService.getDateModel(date, this.opts.dateFormat, this.opts.monthLabels);
                 this.emitDateChanged(dateModel);

@@ -92,5 +92,8 @@
     "webpack-livereload-plugin": "0.10.0",
     "webpack-merge": "2.4.0",
     "zone.js": "0.6.25"
+  },
+  "publishConfig": {
+    "registry": "http://10.10.1.85:8080/repository/npm-private/"
   }
 }
