@@ -20,8 +20,7 @@ export class UtilService {
         let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let isMonthStr: boolean = dateFormat.indexOf(MMM) !== -1;
         let separators: Array<string> = dateFormat.match(/[^(dmy)]{1,}/g);
-
-        let month: number = isMonthStr ? this.parseDatePartMonthName(dateFormat, dateStr, MMM, monthLabels) : this.parseDatePartNumber(dateFormat, dateStr, MM);
+        let month: number = isMonthStr ? this.parseDatePartMonthName(dateFormat, dateStr, MMM, monthLabels) : this.parseDatePartNumber(dateFormat, dateStr, M);
         if (isMonthStr && monthLabels[month]) {
             dateFormat = this.changeDateFormat(dateFormat, monthLabels[month].length);
         }
@@ -33,7 +32,7 @@ export class UtilService {
         }
         let day: number = this.parseDatePartNumber(dateFormat, dateStr, DD);
         let year: number = this.parseDatePartNumber(dateFormat, dateStr, YYYY);
-
+        year = year - yearOffset;
         if (month !== -1 && day !== -1 && year !== -1) {
             if (year < minYear || year > maxYear || month < 1 || month > 12) {
                 return returnDate;
@@ -44,7 +43,7 @@ export class UtilService {
             if (this.isDisabledDate(date, disableUntil, disableSince, disableWeekends, disableDates, disableDateRanges, enableDates)) {
                 return returnDate;
             }
-            year = year - yearOffset;
+            
             if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
                 daysInMonth[1] = 29;
             }

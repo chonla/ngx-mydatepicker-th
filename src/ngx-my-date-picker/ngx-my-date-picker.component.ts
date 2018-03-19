@@ -74,10 +74,9 @@ export class NgxMyDatePicker {
                 idx = this.weekDayOpts[idx] === "sa" ? 0 : idx + 1;
             }
         }
-
+        
         let date: IMyDate = this.utilService.isDateValid(inputValue, this.opts.dateFormat, this.opts.minYear, this.opts.maxYear, this.opts.disableUntil, this.opts.disableSince, this.opts.disableWeekends, this.opts.disableDates, this.opts.disableDateRanges, this.opts.monthLabels, this.opts.enableDates, this.opts.yearOffset);
         if (date.day !== 0 && date.month !== 0 && date.year !== 0) {
-            date.year = date.year - this.opts.yearOffset;
             this.selectedDate = date;
         }
         else {
