@@ -16,11 +16,11 @@ const YYYY = "yyyy";
 @Injectable()
 export class UtilService {
     isDateValid(dateStr: string, dateFormat: string, minYear: number, maxYear: number, disableUntil: IMyDate, disableSince: IMyDate, disableWeekends: boolean, disableDates: Array<IMyDate>, disableDateRanges: Array<IMyDateRange>, monthLabels: IMyMonthLabels, enableDates: Array<IMyDate>, yearOffset: number): IMyDate {
-        let returnDate: IMyDate = {day: 0, month: 0, year: 0};
+        let returnDate: IMyDate = { day: 0, month: 0, year: 0 };
         let daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let isMonthStr: boolean = dateFormat.indexOf(MMM) !== -1;
         let separators: Array<string> = dateFormat.match(/[^(dmy)]{1,}/g);
-        let month: number = isMonthStr ? this.parseDatePartMonthName(dateFormat, dateStr, MMM, monthLabels) : this.parseDatePartNumber(dateFormat, dateStr, M);
+        let month: number = isMonthStr ? this.parseDatePartMonthName(dateFormat, dateStr, MMM, monthLabels) : this.parseDatePartNumber(dateFormat, dateStr, MM);
         if (isMonthStr && monthLabels[month]) {
             dateFormat = this.changeDateFormat(dateFormat, monthLabels[month].length);
         }
@@ -32,18 +32,18 @@ export class UtilService {
         }
         let day: number = this.parseDatePartNumber(dateFormat, dateStr, DD);
         let year: number = this.parseDatePartNumber(dateFormat, dateStr, YYYY);
-        year = year - yearOffset;
+        year = (year < maxYear) ? year : year - yearOffset;
         if (month !== -1 && day !== -1 && year !== -1) {
             if (year < minYear || year > maxYear || month < 1 || month > 12) {
                 return returnDate;
             }
 
-            let date: IMyDate = {year: year, month: month, day: day};
+            let date: IMyDate = { year: year, month: month, day: day };
 
             if (this.isDisabledDate(date, disableUntil, disableSince, disableWeekends, disableDates, disableDateRanges, enableDates)) {
                 return returnDate;
             }
-            
+
             if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
                 daysInMonth[1] = 29;
             }
@@ -108,7 +108,7 @@ export class UtilService {
     }
 
     parseDefaultMonth(monthString: string): IMyMonth {
-        let month: IMyMonth = {monthTxt: "", monthNbr: 0, year: 0};
+        let month: IMyMonth = { monthTxt: "", monthNbr: 0, year: 0 };
         if (monthString !== "") {
             let split = monthString.split(monthString.match(/[^0-9]/)[0]);
             month.monthNbr = split[0].length === 2 ? parseInt(split[0]) : parseInt(split[1]);
@@ -158,17 +158,17 @@ export class UtilService {
         for (let md of markedDates) {
             for (let d of md.dates) {
                 if (d.year === date.year && d.month === date.month && d.day === date.day) {
-                    return {marked: true, color: md.color};
+                    return { marked: true, color: md.color };
                 }
             }
         }
         if (markWeekends && markWeekends.marked) {
             let dayNbr = this.getDayNumber(date);
             if (dayNbr === 0 || dayNbr === 6) {
-                return {marked: true, color: markWeekends.color};
+                return { marked: true, color: markWeekends.color };
             }
         }
-        return {marked: false, color: ""};
+        return { marked: false, color: "" };
     }
 
     isHighlightedDate(date: IMyDate, sunHighlight: boolean, satHighlight: boolean, highlightDates: Array<IMyDate>): boolean {
@@ -199,7 +199,7 @@ export class UtilService {
     }
 
     getDateModel(date: IMyDate, dateFormat: string, monthLabels: IMyMonthLabels): IMyDateModel {
-        return {date: date, jsdate: this.getDate(date), formatted: this.formatDate(date, dateFormat, monthLabels), epoc: Math.round(this.getTimeInMilliseconds(date) / 1000.0)};
+        return { date: date, jsdate: this.getDate(date), formatted: this.formatDate(date, dateFormat, monthLabels), epoc: Math.round(this.getTimeInMilliseconds(date) / 1000.0) };
     }
 
     formatDate(date: IMyDate, dateFormat: string, monthLabels: IMyMonthLabels): string {

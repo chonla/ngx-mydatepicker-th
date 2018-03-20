@@ -13,7 +13,7 @@ const normalSampleTpl: string = require('./sample-date-picker-ngmodel.html');
 export class SampleDatePickerNgModel implements OnInit {
 
     private myDatePickerOptions: INgxMyDpOptions = {
-        dateFormat: 'dd/m/yyyy',
+        dateFormat: 'dd/mm/yyyy',
         firstDayOfWeek: 'mo',
         sunHighlight: true,
         markCurrentDay: true,
@@ -208,7 +208,8 @@ export class SampleDatePickerNgModel implements OnInit {
         if(event.formatted !== '') {
             this.selectedTextNormal = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.validDate = true;
-            this.inputText = event.formatted = event.jsdate.toLocaleDateString('th-TH');
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            this.inputText = event.formatted = event.jsdate.toLocaleDateString('th-TH', options);
         }
         else {
             this.selectedTextNormal = '';
