@@ -39,8 +39,8 @@ function getThaiYearString(year: string) {
 function getThaiString(str: string) {
     const obj = {
         Sun: "อา", Mon: "จ", Tue: "อ", Wed: "พ", Thu: "พฤ", Fri: "ศ", Sat: "ส",
-        Jan: "ม.ค.", Feb: "ก.พ.", Mar: "มี.ค.", Apr: "เม.ย.", May: "พ.ค.", Jun: "มิ.ย.",
-        Jul: "ก.ค.", Aug: "ส.ค.", Sep: "ก.ย.", Oct: "ต.ค.", Nov: "พ.ย.", Dec: "ธ.ค."
+        Jan: "มกราคม", Feb: "กุมภาพันธ์", Mar: "มีนาคม", Apr: "เมษายน", May: "พฤษภาคม", Jun: "มิถุนายน",
+        Jul: "กรกฎาคม", Aug: "สิงหาคม", Sep: "กันยายน", Oct: "ตุลาคม", Nov: "พฤศจิกายน", Dec: "ธันวาคม"
     };
     return obj[str];
 }
